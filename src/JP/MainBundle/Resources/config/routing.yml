@@ -1,0 +1,13 @@
+jp_main_homepage:
+    path:     /
+    defaults: { _controller: JPMainBundle:Default:index }
+
+
+jp_main_dashboardpage:
+    path:     /dashboard
+    defaults: { _controller: JPMainBundle:Default:dashboard }
+
+
+jp_main_notif:
+    path:     /notif
+    defaults: { _controller: JPMainBundle:Default:notif }

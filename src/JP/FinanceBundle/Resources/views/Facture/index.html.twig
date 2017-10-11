@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Factures list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numfacture</th>
+                <th>Boncommande</th>
+                <th>Dhcreation</th>
+                <th>Dhmodif</th>
+                <th>Tva</th>
+                <th>Totalfacture</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for facture in factures %}
+            <tr>
+                <td><a href="{{ path('finance_facture_show', { 'id': facture.id }) }}">{{ facture.id }}</a></td>
+                <td>{{ facture.numfacture }}</td>
+                <td>{{ facture.boncommande }}</td>
+                <td>{% if facture.dhcreation %}{{ facture.dhcreation|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if facture.dhmodif %}{{ facture.dhmodif|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ facture.tva }}</td>
+                <td>{{ facture.totalfacture }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('finance_facture_show', { 'id': facture.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('finance_facture_edit', { 'id': facture.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('finance_facture_new') }}">Create a new facture</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from colorlib.com/polygon/gentelella/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Aug 2017 16:16:27 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>METEA APP | </title>
+
+
+ {% stylesheets filter='cssrewrite'
+      'bundles/jpmainbundle/vendors/bootstrap/dist/css/bootstrap.min.css'
+      'bundles/jpmainbundle/vendors/font-awesome/css/font-awesome.min.css'
+      'bundles/jpmainbundle/vendors/nprogress/nprogress.css'
+       'bundles/jpmainbundle/build/css/custom.min.css'
+       'bundles/jpmainbundle/vendors/animate.css/animate.min.css' %}  
+  
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />  
+    
+{% endstylesheets %}
+
+
+  </head>
+
+  <body class="login">
+    <div>
+      <a class="hiddenanchor" id="signup"></a>
+      <a class="hiddenanchor" id="signin"></a>
+
+      <div class="login_wrapper">
+
+          {% block fos_user_content %}
+
+
+        {% endblock fos_user_content %}
+        
+
+       
+
+
+      </div>
+    </div>
+  </body>
+
+
+</html>

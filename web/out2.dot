@@ -1,0 +1,52 @@
+digraph workflow {
+  ratio="compress" rankdir="LR"
+  node [fontsize="9" fontname="Arial" color="#333333" fillcolor="lightblue" fixedsize="1" width="1"];
+  edge [fontsize="9" fontname="Arial" color="#333333" arrowhead="normal" arrowsize="0.5"];
+
+  place_create [label="create", shape=circle, style="filled"];
+  place_wait_expertise [label="wait_expertise", shape=circle];
+  place_expertise_achieve [label="expertise_achieve", shape=circle];
+  place_wait_redaction [label="wait_redaction", shape=circle];
+  place_wait_correction [label="wait_correction", shape=circle];
+  place_correction_achieve [label="correction_achieve", shape=circle];
+  place_wait_report_edition [label="wait_report_edition", shape=circle];
+  place_wait_facturation [label="wait_facturation", shape=circle];
+  place_facturation_achieve [label="facturation_achieve", shape=circle];
+  place_wait_report_transmission [label="wait_report_transmission", shape=circle];
+  place_wait_payment [label="wait_payment", shape=circle];
+  place_wait_archive [label="wait_archive", shape=circle];
+  transition_validation [label="validation", shape=box, shape="box", regular="1"];
+  transition_expertise [label="expertise", shape=box, shape="box", regular="1"];
+  transition_expertise_ok [label="expertise_ok", shape=box, shape="box", regular="1"];
+  transition_redaction [label="redaction", shape=box, shape="box", regular="1"];
+  transition_correction [label="correction", shape=box, shape="box", regular="1"];
+  transition_correction_ok [label="correction_ok", shape=box, shape="box", regular="1"];
+  transition_report_edition [label="report_edition", shape=box, shape="box", regular="1"];
+  transition_facturation [label="facturation", shape=box, shape="box", regular="1"];
+  transition_facturation_ok [label="facturation_ok", shape=box, shape="box", regular="1"];
+  transition_report_transmission [label="report_transmission", shape=box, shape="box", regular="1"];
+  transition_archive [label="archive", shape=box, shape="box", regular="1"];
+  place_create -> transition_validation [style="solid"];
+  transition_validation -> place_wait_expertise [style="solid"];
+  place_wait_expertise -> transition_expertise [style="solid"];
+  transition_expertise -> place_expertise_achieve [style="solid"];
+  place_expertise_achieve -> transition_expertise_ok [style="solid"];
+  transition_expertise_ok -> place_wait_redaction [style="solid"];
+  place_wait_redaction -> transition_redaction [style="solid"];
+  transition_redaction -> place_wait_correction [style="solid"];
+  place_wait_correction -> transition_correction [style="solid"];
+  transition_correction -> place_correction_achieve [style="solid"];
+  place_correction_achieve -> transition_correction_ok [style="solid"];
+  transition_correction_ok -> place_wait_report_edition [style="solid"];
+  place_wait_report_edition -> transition_report_edition [style="solid"];
+  transition_report_edition -> place_wait_facturation [style="solid"];
+  place_wait_facturation -> transition_facturation [style="solid"];
+  transition_facturation -> place_facturation_achieve [style="solid"];
+  place_facturation_achieve -> transition_facturation_ok [style="solid"];
+  transition_facturation_ok -> place_wait_report_transmission [style="solid"];
+  place_wait_report_transmission -> transition_report_transmission [style="solid"];
+  transition_report_transmission -> place_wait_payment [style="solid"];
+  place_wait_payment -> transition_archive [style="solid"];
+  transition_archive -> place_wait_archive [style="solid"];
+}
+

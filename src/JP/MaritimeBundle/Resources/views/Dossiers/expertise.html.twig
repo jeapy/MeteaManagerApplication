@@ -1,0 +1,1123 @@
+
+{% extends "JPMaritimeBundle:Default:index.html.twig" %}
+{% import "Macros/Filesdisplay.html.twig" as Filesdisplay %}
+
+{% block main %}
+<div class="">
+            
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  
+                  <div class="x_content">
+
+                    <section class="content invoice">
+                      <!-- title row -->
+                      <div class="row">
+                        <div class="col-xs-12 invoice-header">
+                          <h1>
+                                          <i class="fa fa-folder"></i> DOSSIER N° : <a href="{{ path('jp_maritime_showpage', { 'id': folder.id })}}"> {{folder.folderNumber}} </a>
+                                          <small class="pull-right">Date de création : {{folder.createdAt|date('d-m-Y H:i')}}</small>
+                                      </h1>
+
+                                      
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                    
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+           
+                            {% if folder.marking == "wait_expertise" %} 
+                                  <h2>Expertise <small>étape d'expertise</small></h2>
+                            {% elseif folder.marking == "expertise_achieve" %}                                
+                                  <h2>Expertise <small>étape de validation de l'expertise</small></h2>
+                            {% elseif folder.marking == "wait_redaction" %}
+                                  <h2>Redaction <small>étape de Redaction</small></h2>
+                            {% elseif folder.marking == "wait_correction" %}                               
+                                  <h2>Correction <small>étape de Correction</small></h2>
+                            {% elseif folder.marking == "correction_achieve" %}                              
+                                  <h2>Correction <small>étape de validation de la Correction</small></h2>
+                            {% elseif folder.marking == "wait_report_edition" %}
+                                  <h2>Edition du rapport <small>étape d'édition du rapport</small></h2>
+                            {% elseif folder.marking == "wait_facturation" %}
+                                  <h2>Facturation <small>étape de Facturation</small></h2>
+                            {% elseif folder.marking == "facturation_achieve" %}
+                                  <h2>Facturation <small>étape de validation de la Facturation</small></h2>
+                            {% elseif folder.marking == "wait_report_transmission" %}
+                                  <h2>Transmission du rapport <small>étape de transmission du rapport</small></h2>
+                            {% elseif folder.marking == "wait_payment" %}
+                                  <h2>Paiement <small>étape de Paiement</small></h2>
+                            {% elseif folder.marking == "wait_archive" %}
+                                  <h2>Archivage <small>étape d'archivage'</small></h2>
+                            {% endif %} 
+                    
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+               <div class="col-md-12 col-lg-12 col-sm-12">
+                     <div class="text-center">
+                            <form action="{{ path('jp_maritime_apply_transition', {id: folder.id}) }}" method="post">
+                              <div class="btn-group btn-group-sm " role="group" >
+                                  {% for transition in workflow_all_transitions(folder) %}
+                                      <button type="submit"  name="transition" value="{{ transition.name }}"  
+
+                                          {% if workflow_can(folder, transition.name) -%}
+                                              class="btn btn-success source"
+                                          {%- else -%}
+                                              class="btn btn-danger source" disabled="disabled"
+                                          {%- endif -%}
+
+                                          onclick="new PNotify({
+                                               title: 'Etape validé',
+
+                                              text: 'Vous avez validé l\'étape <strong>{{transition.name}}</strong> avec succès.L\'étape suivante sera traité par l\'utilisateur compétant',
+
+                                              type: 'info',
+
+                                              icon: 'fa fa-check', 
+
+                                              styling: 'bootstrap3'
+                                          });"
+                                         
+                                      >
+                                          {{ transition.name }}
+                                      </button>
+                                  {% endfor %}
+                              </div>
+                            </form>
+                   </div>
+               </div>
+                    <div class="clearfix"></div>
+                <br>
+                    <div class="col-md-2 col-lg-2 col-sm-2">
+
+
+                           {% if folder.marking == "wait_expertise" %}                                    
+            
+                                    <!-- blockquote -->
+                                    <blockquote class="left-color">
+                                      <p>EXPERTISE</p>                        
+                                    </blockquote>
+
+                                    <blockquote >
+                                      <p>REDACTION</p>                        
+                                    </blockquote>
+
+                                    <blockquote>
+                                      <p>CORRECTION</p>                        
+                                    </blockquote>
+
+                                    <blockquote >
+                                      <p>EDITION DU RAPPORT</p>                        
+                                    </blockquote>
+
+                                    <blockquote>
+                                      <p>FACTURATION</p>                        
+                                    </blockquote>
+
+                                    <blockquote >
+                                      <p>TRANSMISSION DU RAPPORT</p>                        
+                                    </blockquote>
+
+                                    <blockquote>
+                                      <p>PAIEMENT</p>                        
+                                    </blockquote>
+
+                                    <blockquote >
+                                      <p>ARCHIVAGE</p>                        
+                                    </blockquote>
+
+                                    {% elseif folder.marking == "wait_expertise_doc" %}                                
+            
+                                    <!-- blockquote -->
+                                    <blockquote class="left-color">
+                                      <p>EXPERTISE</p>                        
+                                    </blockquote>
+
+                                    <blockquote >
+                                      <p>REDACTION</p>                        
+                                    </blockquote>
+
+                                    <blockquote>
+                                      <p>CORRECTION</p>                        
+                                    </blockquote>
+
+                                    <blockquote >
+                                      <p>EDITION DU RAPPORT</p>                        
+                                    </blockquote>
+
+                                    <blockquote>
+                                      <p>FACTURATION</p>                        
+                                    </blockquote>
+
+                                    <blockquote >
+                                      <p>TRANSMISSION DU RAPPORT</p>                        
+                                    </blockquote>
+
+                                    <blockquote>
+                                      <p>PAIEMENT</p>                        
+                                    </blockquote>
+
+                                    <blockquote >
+                                      <p>ARCHIVAGE</p>                        
+                                    </blockquote>
+                       
+                            {% elseif folder.marking == "expertise_achieve" %}                                
+            
+                                    <!-- blockquote -->
+                                    <blockquote class="left-color">
+                                      <p>EXPERTISE</p>                        
+                                    </blockquote>
+
+                                    <blockquote >
+                                      <p>REDACTION</p>                        
+                                    </blockquote>
+
+                                    <blockquote>
+                                      <p>CORRECTION</p>                        
+                                    </blockquote>
+
+                                    <blockquote >
+                                      <p>EDITION DU RAPPORT</p>                        
+                                    </blockquote>
+
+                                    <blockquote>
+                                      <p>FACTURATION</p>                        
+                                    </blockquote>
+
+                                    <blockquote >
+                                      <p>TRANSMISSION DU RAPPORT</p>                        
+                                    </blockquote>
+
+                                    <blockquote>
+                                      <p>PAIEMENT</p>                        
+                                    </blockquote>
+
+                                    <blockquote >
+                                      <p>ARCHIVAGE</p>                        
+                                    </blockquote>
+
+                               {% if is_granted("ROLE_ADMIN") %}                            
+                               <form action="{{ path('jp_maritime_back_previous_step', {id: folder.id}) }}" method="post">
+                                       <button type="submit" name="back" value="wait_expertise_doc" class="btn btn-success btn-xs">Retour à l'etape précedente </button>                           
+                              </form>
+                       {% endif %}
+
+                            {% elseif folder.marking == "wait_redaction" %}
+                                          
+                                <!-- blockquote -->
+                                <blockquote >
+                                  <p>EXPERTISE</p>                        
+                                </blockquote>
+
+                                <blockquote class="left-color">
+                                  <p>REDACTION</p>                        
+                                </blockquote>
+
+                                <blockquote>
+                                  <p>CORRECTION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>EDITION DU RAPPORT</p>                        
+                                </blockquote>
+
+                                <blockquote>
+                                  <p>FACTURATION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>TRANSMISSION DU RAPPORT</p>                        
+                                </blockquote>
+
+                                <blockquote>
+                                  <p>PAIEMENT</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>ARCHIVAGE</p>                        
+                                </blockquote>
+                            {% elseif folder.marking == "wait_correction" %}
+                                    
+                                <!-- blockquote -->
+                                <blockquote >
+                                  <p>EXPERTISE</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>REDACTION</p>                        
+                                </blockquote>
+
+                                <blockquote class="left-color">
+                                  <p>CORRECTION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>EDITION DU RAPPORT</p>                        
+                                </blockquote>
+
+                                <blockquote>
+                                  <p>FACTURATION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>TRANSMISSION DU RAPPORT</p>                        
+                                </blockquote>
+
+                                <blockquote>
+                                  <p>PAIEMENT</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>ARCHIVAGE</p>                        
+                                </blockquote>
+
+                          {% elseif folder.marking == "correction_achieve" %}
+                                    
+                                <!-- blockquote -->
+                                <blockquote >
+                                  <p>Expertise</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>Redaction</p>                        
+                                </blockquote>
+
+                                <blockquote class="left-color">
+                                  <p>Correction</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>Edition du rapport</p>                        
+                                </blockquote>
+
+                                <blockquote>
+                                  <p>Facturation</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>Transmission du rapport</p>                        
+                                </blockquote>
+
+                                <blockquote>
+                                  <p>Paiement</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>Archivage</p>                        
+                                </blockquote>
+                            
+                            {% elseif folder.marking == "wait_report_edition" %}
+
+                                <!-- blockquote -->
+                                <blockquote >
+                                  <p>EXPERTISE</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>REDACTION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>CORRECTION</p>                        
+                                </blockquote>
+
+                                <blockquote class="left-color">
+                                  <p>EDITION DU RAPPORT</p>                        
+                                </blockquote>
+
+                                <blockquote>
+                                  <p>FACTURATION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>TRANSMISSION DU RAPPORT</p>                        
+                                </blockquote>
+
+                                <blockquote>
+                                  <p>PAIEMENT</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>ARCHIVAGE</p>                        
+                                </blockquote>
+                               
+                            {% elseif folder.marking == "wait_facturation" %}
+
+                             <!-- blockquote -->
+                                <blockquote >
+                                  <p>EXPERTISE</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>REDACTION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>CORRECTION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>EDITION DU RAPPORT</p>                        
+                                </blockquote>
+
+                                <blockquote class="left-color">
+                                  <p>FACTURATION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>TRANSMISSION DU RAPPORT</p>                        
+                                </blockquote>
+
+                                <blockquote>
+                                  <p>PAIEMENT</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>ARCHIVAGE</p>                        
+                                </blockquote>
+
+                            {% elseif folder.marking == "facturation_achieve" %}
+                                  <!-- blockquote -->
+                                <blockquote >
+                                  <p>EXPERTISE</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>REDACTION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>CORRECTION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>EDITION DU RAPPORT</p>                        
+                                </blockquote>
+
+                                <blockquote class="left-color">
+                                  <p>FACTURATION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>TRANSMISSION DU RAPPORT</p>                        
+                                </blockquote>
+
+                                <blockquote>
+                                  <p>PAIEMENT</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>ARCHIVAGE</p>                        
+                                </blockquote>
+
+                                {% if is_granted("ROLE_ADMIN") %}                            
+                               <form action="{{ path('jp_maritime_back_previous_step', {id: folder.id}) }}" method="post">
+                                       <button type="submit" name="back" value="wait_facturation" class="btn btn-success btn-xs">Retour à l'etape précedente </button>                           
+                              </form>
+                       {% endif %}
+
+                            {% elseif folder.marking == "wait_report_transmission" %}
+
+                                  <!-- blockquote -->
+                                <blockquote >
+                                  <p>EXPERTISE</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>REDACTION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>CORRECTION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>EDITION DU RAPPORT</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>FACTURATION</p>                        
+                                </blockquote>
+
+                                <blockquote class="left-color">
+                                  <p>TRANSMISSION DU RAPPORT</p>                        
+                                </blockquote>
+
+                                <blockquote>
+                                  <p>PAIEMENT</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>ARCHIVAGE</p>                        
+                                </blockquote>
+                               
+                            {% elseif folder.marking == "wait_payment" %}
+
+                             <!-- blockquote -->
+                                <blockquote >
+                                  <p>EXPERTISE</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>REDACTION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>CORRECTION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>EDITION DU RAPPORT</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>FACTURATION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>TRANSMISSION DU RAPPORT</p>                        
+                                </blockquote>
+
+                                <blockquote class="left-color">
+                                  <p>PAIEMENT</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>ARCHIVAGE</p>                        
+                                </blockquote>
+
+                            {% elseif folder.marking == "wait_archive" %}
+                                  <!-- blockquote -->
+                                <blockquote >
+                                  <p>EXPERTISE</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>REDACTION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>CORRECTION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>EDITION DU RAPPORT</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>FACTURATION</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>TRANSMISSION DU RAPPORT</p>                        
+                                </blockquote>
+
+                                <blockquote >
+                                  <p>PAIEMENT</p>                        
+                                </blockquote>
+
+                                <blockquote class="left-color">
+                                  <p>ARCHIVAGE</p>                        
+                                </blockquote>
+                            {% endif %}   
+
+                                          
+                     
+                    </div>
+                    <div class="col-md-10 col-lg-10 col-sm-10">
+                      <div class="row">
+                               <div class="col-md-12 col-sm-12 col-xs-12 ">
+                
+                      
+
+                  {% for transition in workflow_all_transitions(folder) %}
+
+                   {% if folder.marking == "wait_expertise" and workflow_can(folder, transition.name) %}
+
+                    {% elseif folder.marking == "wait_expertise_doc" and workflow_can(folder, transition.name) %}                                    
+                                <div class="x_panel">
+                                  <div class="x_title">
+                                    <h2>CHARGER VOS FICHIERS</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                      </li>
+                                      <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                          <li><a href="#">Settings 1</a>
+                                          </li>
+                                          <li><a href="#">Settings 2</a>
+                                          </li>
+                                        </ul>
+                                      </li>
+                                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                      </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                  </div>
+                                  <div class="x_content">
+
+                                    <p>Veillez selectionner les fichiers les uns apres les autres afin de les enregistrer sur le serveur.</p>
+                                    <div class="dropzone" id="Myform" action="{{path('jp_maritime_expertise_sendfile', { 'id': folder.id ,'step': 'wait_expertise'})}}" >
+                                      <div class="dz-message" data-dz-message><span>Ajouter un fichier</span></div>
+                                    </div>
+                                      <div class="x_panel">
+                                        <div class="x_title">
+                                          <h2>Fichier(s) Chargés </h2>
+                                          
+                                          <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+
+                                          <div class="">
+                                            <ul class="to_do">
+                                                 {% for file in files %}
+                                                    {% if file.step == "wait_expertise" %}                                
+                                                       {{Filesdisplay.filesdisplay(file.name ,folder.id,file.name,file.registerDate)}}
+                                                      {% endif %} 
+                                                  {% endfor %}                                             
+                                              
+                                            </ul>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                 
+                                  </div>
+                                </div>                                  
+                             
+                            {% elseif folder.marking == "expertise_achieve" and workflow_can(folder, transition.name) %}                            
+
+                                     <div class="x_panel">
+                                        <div class="x_title">
+                                          <h2>FICHIER(S) CHARGÉS </h2>
+                                          
+                                          <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+
+                                          <div class="">
+                                            <ul class="to_do">
+                                                 {% for file in files %}
+                                                    {% if file.step == "wait_expertise"  %}            
+                                                       {{Filesdisplay.filesdisplay(file.name ,folder.id,file.name,file.registerDate)}}
+                                                      {% endif %} 
+                                                  {% endfor %}                                          
+                                              
+                                            </ul>
+                                          </div>
+                                        </div>
+                                      </div>                                                 
+
+                            {% elseif folder.marking == "wait_redaction" and workflow_can(folder, transition.name) %}
+
+                             <div class="x_panel">
+                                  <div class="x_title">
+                                    <h2>CHARGEZ VOS FICHIERS</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                      </li>
+                                      <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                          <li><a href="#">Settings 1</a>
+                                          </li>
+                                          <li><a href="#">Settings 2</a>
+                                          </li>
+                                        </ul>
+                                      </li>
+                                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                      </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                  </div>
+                                  <div class="x_content">
+
+                                    <p>Veillez selectionner les fichiers les uns apres les autres afin de les enregistrer sur le serveur.</p>
+                                    <div class="dropzone" id="Myform3" action="{{path('jp_maritime_expertise_sendfile', { 'id': folder.id ,'step': 'wait_redaction'})}}" >
+                                    <div class="dz-message" data-dz-message><span>Ajouter un fichier</span></div>
+                                    </div>
+
+                                     <div class="x_panel">
+                                        <div class="x_title">
+                                          <h2>Fichier(s) Chargés </h2>                                          
+                                          <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                          <div class="">
+                                            <ul class="to_do">
+                                               <h3>Redaction </h3>
+                                                 {% for file in files %}
+                                                  
+                                                    {% if file.step == "wait_redaction" %} 
+                                                                         
+                                                     {{Filesdisplay.filesdisplay(file.name ,folder.id,file.name,file.registerDate)}}                                              
+                                                      
+                                                      {% endif %} 
+                                                  {% endfor %}
+
+                                                  
+                                            </ul>
+                                            <ul class="to_do">
+                                                <h3>Expertise </h3>
+                                                   {% for file in files %}
+                                                 
+                                                     {% if file.step == "wait_expertise"  %}                
+                                                       {{Filesdisplay.filesdisplay(file.name ,folder.id,file.name,file.registerDate)}}
+                                                      
+                                                      {% endif %} 
+                                                  {% endfor %}                                             
+                                              
+                                            </ul>
+                                          </div>
+                                        </div>
+                                      </div>
+                                 
+                                  </div>
+                                </div>                      
+            
+                                
+                                          
+                               
+                            {% elseif folder.marking == "wait_correction" and workflow_can(folder, transition.name)%}
+                             <div class="x_panel">
+                                  <div class="x_title">
+                                    <h2>CHARGER VOS FICHIERS</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                      </li>
+                                      <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                          <li><a href="#">Settings 1</a>
+                                          </li>
+                                          <li><a href="#">Settings 2</a>
+                                          </li>
+                                        </ul>
+                                      </li>
+                                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                      </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                  </div>
+                                  <div class="x_content">
+
+                                    <p>Veillez selectionner les fichiers les uns apres les autres afin de les enregistrer sur le serveur.</p>
+                                    <div class="dropzone" id="Myform5" action="{{path('jp_maritime_expertise_sendfile', { 'id': folder.id ,'step': 'wait_correction'})}}" >
+                                      <div class="dz-message" data-dz-message><span>Ajouter un fichier</span></div>
+                                    </div>
+                                      <div class="x_panel">
+                                        <div class="x_title">
+                                          <h2>Fichier(s) Chargés </h2>
+                                          
+                                          <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+
+                                          <div class="">
+                                            <ul class="to_do">
+                                              <h3>Correction </h3>
+                                                 {% for file in files %}
+                                                    {% if file.step == "wait_correction" %}                                
+                                                       {{Filesdisplay.filesdisplay(file.name ,folder.id,file.name,file.registerDate)}}
+                                                      {% endif %} 
+                                                  {% endfor %}                                             
+                                              
+                                            </ul>
+
+                                             <ul class="to_do">
+                                               <h3>Redaction </h3>
+                                                 {% for file in files %}
+                                                  
+                                                    {% if file.step == "wait_redaction" %} 
+                                                                         
+                                                     {{Filesdisplay.filesdisplay(file.name ,folder.id,file.name,file.registerDate)}}                                              
+                                                      
+                                                      {% endif %} 
+                                                  {% endfor %}
+
+                                                  
+                                            </ul>
+                                            <ul class="to_do">
+                                                <h3>Expertise </h3>
+                                                   {% for file in files %}
+                                                 
+                                                     {% if file.step == "wait_expertise"  %}                
+                                                       {{Filesdisplay.filesdisplay(file.name ,folder.id,file.name,file.registerDate)}}
+                                                      
+                                                      {% endif %} 
+                                                  {% endfor %}                                             
+                                              
+                                            </ul>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                 
+                                  </div>
+                                </div>
+                                                                    
+
+                            {% elseif folder.marking == "correction_achieve" and workflow_can(folder, transition.name) %}
+
+                             <div class="x_panel">
+                                  <div class="x_title">
+                                    <h2>CHARGER VOS FICHIERS</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                      </li>
+                                      <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                          <li><a href="#">Settings 1</a>
+                                          </li>
+                                          <li><a href="#">Settings 2</a>
+                                          </li>
+                                        </ul>
+                                      </li>
+                                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                      </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                  </div>
+                                  <div class="x_content">
+
+                                    <p>Veillez selectionner les fichiers les uns apres les autres afin de les enregistrer sur le serveur.</p>
+                                    <div class="dropzone" id="Myform6" action="{{path('jp_maritime_expertise_sendfile', { 'id': folder.id ,'step': 'correction_achieve'})}}" >
+                                      <div class="dz-message" data-dz-message><span>Ajouter un fichier</span></div>
+                                    </div>
+                                      <div class="x_panel">
+                                        <div class="x_title">
+                                          <h2>Fichier(s) Chargés </h2>
+                                          
+                                          <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+
+                                          <div class="">
+                                            <ul class="to_do">
+                                                 {% for file in files %}
+                                                    {% if file.step == "correction_achieve" %}                                
+                                                       {{Filesdisplay.filesdisplay(file.name ,folder.id,file.name,file.registerDate)}}
+                                                      {% endif %} 
+                                                  {% endfor %}                                             
+                                              
+                                            </ul>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                 
+                                  </div>
+                                </div>                                 
+                            
+                            {% elseif folder.marking == "wait_report_edition" and workflow_can(folder, transition.name) %}
+
+                             <div class="x_panel">
+                                  <div class="x_title">
+                                    <h2>CHARGER VOS FICHIERS</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                      </li>
+                                      <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                          <li><a href="#">Settings 1</a>
+                                          </li>
+                                          <li><a href="#">Settings 2</a>
+                                          </li>
+                                        </ul>
+                                      </li>
+                                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                      </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                  </div>
+                                  <div class="x_content">
+
+                                    <p>Veillez selectionner les fichiers les uns apres les autres afin de les enregistrer sur le serveur.</p>
+                                    <div class="dropzone" id="Myform7" action="{{path('jp_maritime_expertise_sendfile', { 'id': folder.id ,'step': 'wait_report_edition'})}}" >
+                                      <div class="dz-message" data-dz-message><span>Ajouter un fichier</span></div>
+                                    </div>
+                                      <div class="x_panel">
+                                        <div class="x_title">
+                                          <h2>Fichier(s) Chargés </h2>
+                                          
+                                          <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+
+                                          <div class="">
+                                            <ul class="to_do">
+                                                 {% for file in files %}
+                                                    {% if file.step == "wait_report_edition" %}                                
+                                                       {{Filesdisplay.filesdisplay(file.name ,folder.id,file.name,file.registerDate)}}
+                                                      {% endif %} 
+                                                  {% endfor %}                                             
+                                              
+                                            </ul>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                 
+                                  </div>
+                                </div>    
+                               
+                            {% elseif folder.marking == "wait_facturation" and workflow_can(folder, transition.name) %}
+                            <div class="x_panel">
+                                  <div class="x_title">
+                                    <h2>CHARGEZ VOS FICHIERS</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                      </li>
+                                      <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                          <li><a href="#">Settings 1</a>
+                                          </li>
+                                          <li><a href="#">Settings 2</a>
+                                          </li>
+                                        </ul>
+                                      </li>
+                                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                      </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                  </div>
+                                  <div class="x_content">
+
+                                    <p>Veillez selectionner les fichiers les uns apres les autres afin de les enregistrer sur le serveur.</p>
+                                    <div class="dropzone" id="Myform4" action="{{path('jp_maritime_expertise_sendfile', { 'id': folder.id ,'step': 'wait_facturation'})}}" >
+                                    <div class="dz-message" data-dz-message><span>Ajouter un fichier</span></div>
+                                    </div>
+
+                                     <div class="x_panel">
+                                        <div class="x_title">
+                                          <h2>Fichier(s) Chargés </h2>                                          
+                                          <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                          <div class="">
+                                            <ul class="to_do">
+                                                 {% for file in files %}
+                                                    {% if file.step == "wait_facturation" %}                                
+                                                     {{Filesdisplay.filesdisplay(file.name ,folder.id,file.name,file.registerDate)}}
+                                                      {% endif %} 
+                                                  {% endfor %}                                             
+                                              
+                                            </ul>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div class="x_panel">
+                                        <div class="x_title">
+                                          <h2>Creation de Facture </h2>                                          
+                                          <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                       <!-- start form for validation -->
+
+               {% if facture %}  
+
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                
+                                <th>Numero</th>
+                                <th>Total</th>
+                                
+                                <th>Date et heure</th>
+                              </tr>
+                            </thead>
+                             {% for fact in facture %}                                  
+                             
+                            <tbody>
+                              <tr>
+                                
+                                <td>{{fact.numfacture}}</td>
+                                <td>{{fact.totalfacture}}</td>
+                                
+                                <td>{{fact.dhcreation|date('d-m-Y H:i')}}</td>
+                              </tr>                              
+                            </tbody>
+                             {% endfor %} 
+                          </table>                     
+                       
+                    <!-- end form for validations -->
+                    {% else %}
+                     {{ form_start(form,{'action':path('jp_maritime_add_facture', { 'id': folder.id}),'method':'post'}) }}
+                        {{ form_errors(form) }}
+
+                        {{ form_label(form.numfacture) }}
+                        {{ form_widget(form.numfacture) }}
+                        {{ form_errors(form.numfacture) }}
+                     
+                        {{ form_label(form.boncommande) }}
+                        {{ form_widget(form.boncommande) }}
+                        {{ form_errors(form.boncommande) }}
+                      
+                        {{ form_label(form.tva) }} 
+                        {{ form_widget(form.tva) }}
+                        {{ form_errors(form.tva) }}
+                       
+                        
+                 <br> 
+         <div class="well">
+           <a href="#" id="item" class="btn btn-default">Ajouter une ligne</a>
+           {{ form_widget(form.facture_item) }}
+                      {{ form_errors(form.facture_item) }}
+                                </div>  
+
+
+                                {{ form_label(form.totalfacture) }}
+                        {{ form_widget(form.totalfacture) }}
+                        {{ form_errors(form.totalfacture) }}
+ <br> 
+        <button class="btn btn-success" id="valider" value="Créer la Facture" >Enregister<button>
+    {{ form_end(form) }}
+
+                    {% endif %}
+                                  </div>
+                                </div>                      
+            
+                                  </div>
+                                </div>                      
+            
+
+                            {% elseif folder.marking == "facturation_achieve" and workflow_can(folder, transition.name) %}
+                             <div class="x_panel">
+                                  <div class="x_title">
+                                    <h2>FACTURE </h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                      </li>
+                                      <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                          <li><a href="#">Settings 1</a>
+                                          </li>
+                                          <li><a href="#">Settings 2</a>
+                                          </li>
+                                        </ul>
+                                      </li>
+                                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                      </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                  </div>
+                                  <div class="x_content">
+
+                                     {% if facture %}  
+
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                
+                                <th>Numero</th>
+                                <th>Total</th>
+                                
+                                <th>Date et heure</th>
+                              </tr>
+                            </thead>
+                             {% for fact in facture %}                                  
+                             
+                            <tbody>
+                              <tr>
+                                
+                                <td>{{fact.numfacture}}</td>
+                                <td>{{fact.totalfacture}}</td>
+                                
+                                <td>{{fact.dhcreation|date('d-m-Y H:i')}}</td>
+                              </tr>                              
+                            </tbody>
+                             {% endfor %} 
+                          </table>                     
+                       
+                    <!-- end form for validations -->
+                    {% else %}
+                       <h1>Aucune facture n'a été créer pour ce dossier,veillez revenir à l'étape précedente <h1>
+                    {% endif %}
+                                      <div class="x_panel">
+                                        <div class="x_title">
+                                          <h2>Fichier(s) Chargés </h2>
+                                          
+                                          <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+
+                                          <div class="">
+                                            <ul class="to_do">
+                                                 {% for file in files %}
+                                                    {% if file.step == "facturation_achieve" %}                                
+                                                       {{Filesdisplay.filesdisplay(file.name ,folder.id,file.name,file.registerDate)}}
+                                                      {% endif %} 
+                                                  {% endfor %}                                             
+                                              
+                                            </ul>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                 
+                                  </div>
+                                </div>
+
+                            {% elseif folder.marking == "wait_report_transmission" and workflow_can(folder, transition.name) %}
+                               
+                            {% elseif folder.marking == "wait_payment" and workflow_can(folder, transition.name) %}
+
+                            {% elseif folder.marking == "wait_archive" and workflow_can(folder, transition.name) %}
+
+
+                            {% endif %}   
+
+                       {% endfor %}
+
+               
+              </div>
+                 
+            </div>
+       </div>
+
+                    <div class="clearfix"></div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+{% endblock %}
+
+

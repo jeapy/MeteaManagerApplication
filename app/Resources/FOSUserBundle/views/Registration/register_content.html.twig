@@ -1,0 +1,37 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+             
+              
+ <div class="animate form registration_form">
+          <section class="login_content">
+             {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+              <h1>Create Account</h1>
+
+            
+			    {{ form_widget(form) }}
+			    <div>
+			        <input class="btn btn-success" type="submit" value="{{ 'registration.submit'|trans }}" />
+			    </div>
+			    
+              
+              <div class="clearfix"></div>
+
+              <div class="separator">
+                <p class="change_link">Vous avez deja un compte ?
+            
+                    <a class="to_register" href="{{ path("fos_user_security_login") }}">Connectez vous</a>
+
+                </p>
+
+                <div class="clearfix"></div>
+                <br />
+
+                <div>
+                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                </div>
+              </div>
+      {{ form_end(form) }}
+           
+          </section>
+        </div>

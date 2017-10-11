@@ -1,0 +1,29 @@
+jp_finance_homepage:
+    path:     /
+    defaults: { _controller: JPFinanceBundle:Default:index }
+
+
+finance_facture_index:
+    path:     /finance
+    defaults: { _controller: "JPFinanceBundle:Facture:index" }
+    methods:  GET
+
+finance_facture_show:
+    path:     /finance/{id}/show
+    defaults: { _controller: "JPFinanceBundle:Facture:show" }
+    methods:  GET
+
+finance_facture_new:
+    path:     /finance/new
+    defaults: { _controller: "JPFinanceBundle:Facture:new" }
+    methods:  [GET, POST]
+
+finance_facture_edit:
+    path:     /finance/{id}/edit
+    defaults: { _controller: "JPFinanceBundle:Facture:edit" }
+    methods:  [GET, POST]
+
+finance_facture_delete:
+    path:     /finance/{id}/delete
+    defaults: { _controller: "JPFinanceBundle:Facture:delete" }
+    methods:  DELETE

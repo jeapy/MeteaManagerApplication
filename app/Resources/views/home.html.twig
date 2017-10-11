@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>METEA APP | {% block title %} {% endblock %}</title>
+
+  {% stylesheets filter='cssrewrite'
+      'bundles/jpmainbundle/vendors/bootstrap/dist/css/bootstrap.min.css'
+      'bundles/jpmainbundle/vendors/font-awesome/css/font-awesome.min.css'
+      'bundles/jpmainbundle/vendors/nprogress/nprogress.css'
+       'bundles/jpmainbundle/build/css/custom.min.css'
+       'bundles/jpmainbundle/build/css/mycss.css' %}  
+  
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />  
+    
+{% endstylesheets %}
+
+    
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+
+
+        {% block main %}   {% endblock %}
+
+
+      </div>
+    </div>
+ {% javascripts
+    'bundles/jpmainbundle/vendors/jquery/dist/jquery.min.js'
+    'bundles/jpmainbundle/vendors/bootstrap/dist/js/bootstrap.min.js'
+    'bundles/jpmainbundle/vendors/fastclick/lib/fastclick.js'      
+    'bundles/jpmainbundle/vendors/nprogress/nprogress.js' 
+   'bundles/jpmainbundle/build/js/custom.min.js'
+     %}
+
+    <script src="{{ asset_url }}"></script>
+
+
+  {% endjavascripts %}
+
+  </body>
+
+</html>

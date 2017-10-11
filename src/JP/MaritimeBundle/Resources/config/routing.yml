@@ -1,0 +1,68 @@
+jp_maritime_homepage:
+    path:     /
+    defaults: { _controller: JPMaritimeBundle:Default:index }
+
+jp_maritime_newpage:
+    path:     /new
+    defaults: { _controller: JPMaritimeBundle:Default:new }
+    methods:  [GET, POST]
+
+jp_maritime_editpage:
+    path:     /{id}/edit
+    defaults: { _controller: JPMaritimeBundle:Default:edit }
+    methods:  [GET, POST]
+
+jp_maritime_showpage:
+    path:     /{id}/details
+    defaults: { _controller: JPMaritimeBundle:Default:detailsDossier }
+    methods:  [GET, POST]
+
+jp_maritime_expertisepage:
+    path:     /{id}/expertise
+    defaults: { _controller: JPMaritimeBundle:Default:expertise}
+    methods:  [GET, POST]
+
+jp_maritime_expertise_sendfile:
+    path:     /{id}/{step}/expertises
+    defaults: { _controller: JPMaritimeBundle:Default:expertiseSendFile}
+    methods:  [GET, POST]
+
+jp_maritime_apply_transition:
+    path:     /{id}/transition
+    defaults: { _controller: JPMaritimeBundle:Default:applyTransition}
+    methods:  [GET, POST]
+
+jp_maritime_redactionpage:
+    path:     /{id}/redaction
+    defaults: { _controller: JPMaritimeBundle:Default:redaction}
+    methods:  [GET, POST]
+
+jp_maritime_back_previous_step:
+    path:     /{id}/backtransition
+    defaults: { _controller: JPMaritimeBundle:Default:backPreviousStep}
+    methods:  [GET, POST]
+
+jp_maritime_fiche:
+    path:     /{id}/fiche
+    defaults: { _controller: JPMaritimeBundle:Default:fiche}
+    methods:  [GET, POST]
+
+jp_maritime_displayfile:
+    path:     /{id}/{doc}/display
+    defaults: { _controller: JPMaritimeBundle:Default:displayFile}
+    methods:  [GET, POST]
+
+jp_maritime_downloadfile:
+    path:     /{id}/{doc}/download
+    defaults: { _controller: JPMaritimeBundle:Default:downloadFile}
+    methods:  [GET, POST]
+
+jp_maritime_add_facture:
+    path:     /facture/{id}/new
+    defaults: { _controller: JPMaritimeBundle:Default:addFacture}
+    methods:  [GET, POST]
+
+jp_maritime_affecter_dossier:
+    path:     /{id}/affecter
+    defaults: { _controller: JPMaritimeBundle:Default:affecterDossier }
+    methods:  [GET, POST]

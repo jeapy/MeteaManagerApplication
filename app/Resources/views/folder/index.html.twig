@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Folders list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numero dossier</th>
+                <th>Requerant</th>
+                <th>Navire</th>
+                <th>Date Arrive</th>
+                <th>Description</th>
+                <th>Date Intervention</th>
+                <th>Etape</th>
+                <th>Créé le</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for folder in folders %}
+            <tr>
+                <td><a href="{{ path('folder_show', { 'id': folder.id }) }}">{{ folder.id }}</a></td>
+                <td>{{ folder.folderNumber }}</td>
+                <td>{{ folder.requerant }}</td>
+                <td>{{ folder.navire }}</td>
+                <td>{% if folder.dateArrive %}{{ folder.dateArrive|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ folder.description }}</td>
+                <td>{% if folder.dateIntervention %}{{ folder.dateIntervention|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ folder.step }}</td>
+                <td>{% if folder.createdAt %}{{ folder.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('folder_show', { 'id': folder.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('folder_edit', { 'id': folder.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('folder_new') }}">Create a new folder</a>
+        </li>
+    </ul>
+{% endblock %}

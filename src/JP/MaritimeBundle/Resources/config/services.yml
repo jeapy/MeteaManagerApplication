@@ -1,0 +1,14 @@
+services:
+#    jp_maritime.example:
+#        class: JP\MaritimeBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    workflow.twig_extension_developer:
+        class: JP\MaritimeBundle\Twig\WorkflowExtension
+        tags:
+            - { name: twig.extension }
+        arguments: ['@workflow.registry']
+
+    setOrderNumber:
+        class: JP\MaritimeBundle\Services\MyService
+        arguments: ["@doctrine.orm.entity_manager" , "@service_container"]

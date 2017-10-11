@@ -1,0 +1,64 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="fos_user_user_show">
+   
+
+  <h1>DETAILS DU PROFIL</h1>
+    <hr>
+
+ 
+          
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>{{ 'profile.show.username'|trans }}</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'profile.show.email'|trans }}</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            {% if user.infouser is not null %}			  
+			  <tr>
+                <th>Nom Prenom</th>
+                <td>{{ user.infouser.nomprenom }}</td>
+            </tr>
+
+            <tr>
+                <th>Numero de securité social</th>
+                <td>{{ user.infouser.numSecur }}</td>
+            </tr>
+            <tr>
+                <th>
+                    Date d'embauche </th>
+                <td>{{ user.infouser.dateEnt | date("d/m/Y")}}</td>
+            </tr>
+            <tr>
+                <th>Matricule</th>
+                <td>{{ user.infouser.matricule }}</td>
+            </tr>
+            <tr>
+                <th>Emploi occupé</th>
+                <td>{{ user.infouser.emploi.libelle }}</td>
+            </tr>
+            <tr>
+                <th>Position</th>
+                <td>{{ user.infouser.position.libelle }}</td>
+            </tr>
+            <tr>
+                <th>Entreprise</th>
+                <td>{{ user.infouser.compagny.name }}</td>
+            </tr>
+
+                 
+                
+
+			{% endif %}
+             
+        </tbody>
+    </table>
+
+
+
+
+</div>

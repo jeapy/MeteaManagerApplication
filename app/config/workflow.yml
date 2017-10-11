@@ -1,0 +1,72 @@
+framework:
+    workflows:
+        folder:
+            type: state_machine
+            supports:
+                - JP\MaritimeBundle\Entity\Folder
+            places:
+                
+                - wait_expertise
+                - wait_expertise_doc
+                - expertise_achieve
+                - wait_redaction
+                - wait_correction
+                - correction_achieve
+                - wait_report_edition
+                - wait_facturation
+                - facturation_achieve
+                - wait_report_transmission
+                - wait_payment
+                - wait_archive
+                - finish
+            transitions:
+                
+                expertise:
+                    guard: "is_granted('ROLE_EXPERT')"
+                    from: wait_expertise
+                    to: wait_expertise_doc
+                expertise_doc:
+                    guard: "is_granted('ROLE_EXPERT')"
+                    from: wait_expertise_doc
+                    to: expertise_achieve
+                expertise_ok:
+                    guard: "is_granted('ROLE_ADMIN')"
+                    from: expertise_achieve                        
+                    to: wait_redaction
+                redaction:
+                    guard: "is_granted('ROLE_REDACTEUR')"
+                    from: wait_redaction                        
+                    to: wait_correction
+                correction:
+                    guard: "is_granted('ROLE_CORRECTEUR')"
+                    from: wait_correction
+                    to: correction_achieve
+                correction_ok:
+                    guard: "is_granted('ROLE_ADMIN')"
+                    from: correction_achieve
+                    to: wait_report_edition
+                report_edition:
+                    guard: "is_granted('ROLE_EDITEUR')"
+                    from: wait_report_edition
+                    to:  wait_facturation
+                facturation:
+                    guard: "is_granted('ROLE_FACTURIER')"
+                    from: wait_facturation
+                    to: facturation_achieve
+                facturation_ok:
+                    guard: "is_granted('ROLE_ADMIN')"
+                    from: facturation_achieve
+                    to: wait_report_transmission
+                report_transmission:
+                    guard: "is_fully_authenticated()"
+                    from: wait_report_transmission
+                    to: wait_payment
+                payment:
+                    guard: "is_fully_authenticated()"
+                    from: wait_payment
+                    to: wait_archive
+                archive:
+                    guard: "is_granted('ROLE_SUPER_ADMIN')"
+                    from: wait_archive
+                    to: finish
+

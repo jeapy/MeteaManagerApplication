@@ -1,0 +1,23 @@
+jp_finance:
+    resource: "@JPFinanceBundle/Resources/config/routing.yml"
+    prefix:   /finance
+
+jp_maritime:
+    resource: "@JPMaritimeBundle/Resources/config/routing.yml"
+    prefix:   /maritime
+
+jp_user:
+    resource: "@JPUserBundle/Resources/config/routing.yml"
+    prefix:   /users
+
+jp_main:
+    resource: "@JPMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+

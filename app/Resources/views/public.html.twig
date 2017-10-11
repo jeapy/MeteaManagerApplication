@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from colorlib.com/polygon/gentelella/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Aug 2017 16:15:43 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>METEA APP | {% block title %} {% endblock %}</title>
+
+
+     {% stylesheets filter='cssrewrite'
+      'bundles/jpmainbundle/vendors/bootstrap/dist/css/bootstrap.min.css'
+      'bundles/jpmainbundle/vendors/font-awesome/css/font-awesome.min.css'
+      'bundles/jpmainbundle/vendors/nprogress/nprogress.css'
+      'bundles/jpmainbundle/vendors/iCheck/skins/flat/green.css'
+      'bundles/jpmainbundle/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css'
+      'bundles/jpmainbundle/vendors/jqvmap/dist/jqvmap.min.css'
+      'bundles/jpmainbundle/vendors/bootstrap-daterangepicker/daterangepicker.css'
+      'bundles/jpmainbundle/vendors/dropzone/dist/min/dropzone.min.css'
+      'bundles/jpmainbundle/vendors/pnotify/dist/pnotify.css'
+      'bundles/jpmainbundle/vendors/pnotify/dist/pnotify.buttons.css'
+      'bundles/jpmainbundle/vendors/pnotify/dist/pnotify.nonblock.css'
+      'bundles/jpmainbundle/build/css/custom.min.css'
+      'bundles/jpmainbundle/build/css/mysecond.css' %}  
+  
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />  
+    
+{% endstylesheets %}
+
+    
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="index-2.html" class="site_title"><i class="fa fa-building"></i> <span>METEA APPS</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+           
+
+            <br />
+
+            <!-- sidebar menu -->
+                   {% block sidebar_menu %}     {% endblock %}
+
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" data-placement="top" title="Settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
+            </div>
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            
+            <nav>
+             <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+
+
+
+                   {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+         <img src="images/img.jpg" alt=""> {{  app.user.username }}
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+
+            {% else %}
+              
+            {% endif %}
+
+
+
+                 
+
+
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="javascript:;"> Profile</a></li>
+                    
+                   
+                    <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out pull-right"></i>{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                  </ul>
+                </li>
+
+                <li role="presentation" class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-bell-o"></i>
+                    <span class="badge bg-green">6</span>
+                  </a>
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    <li>
+                      <a>
+                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                   
+                    <li>
+                      <div class="text-center">
+                        <a>
+                          <strong>See All Alerts</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+
+                {% block main %}     {% endblock %}
+
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Conçu et Réalisé par METEA INGENIERIE || <a href="http://www.meteaci.com/">METEA APPS</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+ {% javascripts
+    'bundles/jpmainbundle/vendors/jquery/dist/jquery.min.js'
+    'bundles/jpmainbundle/vendors/bootstrap/dist/js/bootstrap.min.js'
+    'bundles/jpmainbundle/vendors/fastclick/lib/fastclick.js'
+      
+    'bundles/jpmainbundle/vendors/nprogress/nprogress.js'    
+    'bundles/jpmainbundle/vendors/Chart.js/dist/Chart.min.js'   
+    'bundles/jpmainbundle/vendors/gauge.js/dist/gauge.min.js'   
+    'bundles/jpmainbundle/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js'   
+    'bundles/jpmainbundle/vendors/iCheck/icheck.min.js'   
+    
+    'bundles/jpmainbundle/vendors/Flot/jquery.flot.js'
+    'bundles/jpmainbundle/vendors/Flot/jquery.flot.pie.js'
+    'bundles/jpmainbundle/vendors/Flot/jquery.flot.time.js'
+    'bundles/jpmainbundle/vendors/Flot/jquery.flot.stack.js'
+    'bundles/jpmainbundle/vendors/Flot/jquery.flot.resize.js'    
+    'bundles/jpmainbundle/vendors/flot.orderbars/js/jquery.flot.orderBars.js'
+    'bundles/jpmainbundle/vendors/flot-spline/js/jquery.flot.spline.min.js'
+    'bundles/jpmainbundle/vendors/flot.curvedlines/curvedLines.js'    
+    'bundles/jpmainbundle/vendors/DateJS/build/date.js'    
+    'bundles/jpmainbundle/vendors/jqvmap/dist/jquery.vmap.js'
+    'bundles/jpmainbundle/vendors/jqvmap/dist/maps/jquery.vmap.world.js'
+    'bundles/jpmainbundle/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js'    
+    'bundles/jpmainbundle/vendors/moment/min/moment.min.js'
+    'bundles/jpmainbundle/vendors/bootstrap-daterangepicker/daterangepicker.js'  
+    'bundles/jpmainbundle/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js'
+    'bundles/jpmainbundle/vendors/dropzone/dist/min/dropzone.min.js'  
+    'bundles/jpmainbundle/vendors/pnotify/dist/pnotify.js'  
+    'bundles/jpmainbundle/vendors/pnotify/dist/pnotify.buttons.js'
+    'bundles/jpmainbundle/vendors/pnotify/dist/pnotify.nonblock.js'
+    'bundles/jpmainbundle/build/js/custom.min.js'
+    'bundles/jpmainbundle/build/js/mycustom.js'
+     %}
+
+    <script src="{{ asset_url }}"></script>
+
+  {% endjavascripts %}
+
+ 
+  
+<!-- Google Analytics -->
+
+	
+  </body>
+
+<!-- Mirrored from colorlib.com/polygon/gentelella/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Aug 2017 16:16:03 GMT -->
+</html>

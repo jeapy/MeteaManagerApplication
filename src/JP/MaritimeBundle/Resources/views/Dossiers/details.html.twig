@@ -1,0 +1,158 @@
+
+{% extends "JPMaritimeBundle:Default:index.html.twig" %}
+ 
+
+{% block main %}
+<div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Détails de Dossier</h3>
+              </div>
+
+              
+            </div>
+
+
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  
+                  <div class="x_content">
+
+                    <section class="content invoice">
+                      <!-- title row -->
+                      <div class="row">
+                        <div class="col-xs-12 invoice-header">
+                          <h1>
+                                          <i class="fa fa-folder"></i> DOSSIER N° : {{folder.folderNumber}}
+                                          <small class="pull-right">Date de création : {{folder.createdAt|date('d-m-Y H:i')}}</small>
+                                      </h1>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+
+                      <hr>
+
+                      <!-- info row -->
+                      <div class="row invoice-info">
+                        <div class="col-sm-5 invoice-col">
+                           <p class="lead">Requerant : <small>{{folder.requerant}} </small></p>                       
+                          
+                          <p class="lead">Moyen de transport : <small >{{folder.moyentp}} </small></p> 
+                          
+                          <p class="lead">Objet de la mission: <small >{{folder.description}}</small></p> 
+                          
+                          <p class="lead">Arrivé du navire: <small>{{folder.dateArrive|date('d-m-Y H:i')}} </small></p> 
+                          
+                          <p class="lead">Debut de l'intervention: <small>{{folder.dateIntervention|date('d-m-Y H:i')}}</small></p> 
+                        </div>
+                        <!-- /.col -->
+                        
+                        <!-- /.col -->
+                        <div class="col-sm-offset-1 col-sm-5 invoice-col">
+                          <h3>Créer Par: <i class="pull-right">{{folder.createBy}}</i></h3> 
+                          
+                          <h3>Gérer Par: <i class="pull-right">{{folder.owner}} </i></h3> 
+                          
+                           
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                       <hr>
+
+                      <div class="row">
+
+                         <!-- /.col -->
+                        <div class=" col-xs-6">
+                          <p class="lead">Affectation(s)</p>
+                          <div class="table-responsive">
+                           {% if affectations %} 
+                            <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                
+                                <th>Etape</th>
+                                <th>Utilisateur</th>
+                                
+                                <th>Date et heure</th>
+                              </tr>
+                            </thead>
+                             {% for affectation in affectations %}                                  
+                             
+                            <tbody>
+                              <tr>
+                                
+                                <td>{{affectation.etape}}</td>
+                                <td>{{affectation.user}}</td>
+                                
+                                <td>{{affectation.dateheure|date('d-m-Y H:i')}}</td>
+                              </tr>                              
+                            </tbody>
+                             {% endfor %} 
+                          </table>
+                           {% endif %} 
+                          </div>
+                        </div>
+                        <!-- /.col -->
+                       
+                        <!-- /.col -->
+                        <div class=" col-xs-6">
+                          <p class="lead">Intervention(s)</p>
+                          <div class="table-responsive">
+                           {% if steps %} 
+                            <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                
+                                <th>Action</th>
+                                <th>Utilisateur</th>
+                                
+                                <th>Date et heure</th>
+                              </tr>
+                            </thead>
+                             {% for step in steps %}                                  
+                             
+                            <tbody>
+                              <tr>
+                                
+                                <td>{{step.step}}</td>
+                                <td>{{step.user}}</td>
+                                
+                                <td>{{step.createAt|date('d-m-Y H:i')}}</td>
+                              </tr>                              
+                            </tbody>
+                             {% endfor %} 
+                          </table>
+                           {% endif %} 
+                          </div>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                      <!-- this row will not appear when printing -->
+                      <div class="row no-print">
+                        <div class="col-xs-12">
+                          
+                          
+
+           <a href="{{path('jp_maritime_expertisepage',{'id':folder.id})}}" class="btn btn-primary pull-left" style="margin-left: 5px;"><i class="fa fa-process"></i> Gérer</a>
+
+          
+                          
+          <a href="{{path('jp_maritime_fiche',{'id':folder.id})}}" class="btn btn-primary pull-right" style="margin-right:5px;"><i class="fa fa-download"></i> Generate PDF</a>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+    </div>
+  {% endblock %}

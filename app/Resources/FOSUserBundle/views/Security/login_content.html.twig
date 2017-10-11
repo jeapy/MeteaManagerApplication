@@ -1,0 +1,53 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+             
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+
+
+        
+
+<div class="animate form login_form">
+          <section class="login_content">
+           <form action="{{ path("fos_user_security_check") }}" method="post"  >
+                    {% if csrf_token %}
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                    {% endif %}
+              <h1>AUTHENTIFICATION</h1>
+              <div>
+                  <input  class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+              </div>
+              <div>
+                 <input  class="form-control" type="password" id="password" name="_password" required="required" />
+
+              </div>
+              <div>
+             
+                <button class="btn btn-success signup" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}">Connexion</button>
+              
+                  <a class="reset_pass" href="{{ path("fos_user_resetting_request") }}">Mot de passe oublié ?</a><br>
+              </div>
+
+              <div class="clearfix"></div>
+
+              <div class="separator">
+                
+
+                <div class="clearfix"></div>
+                <br />
+
+                <div>
+                  <h1><i class="fa fa-building"></i> METEA APPS!</h1>
+                  <p>©2017 Tous droits réservés. </p>
+                </div>
+              </div>
+            </form>
+
+          </section>
+        </div>
+            
+
+   
+  

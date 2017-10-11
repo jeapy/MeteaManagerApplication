@@ -1,0 +1,7 @@
+    {% macro filesdisplay(filename,folder,document,date)%}
+                   <li>
+                    <p>
+                      {{filename}} | date d'ajout :  {{date |date('d-m-Y H:i')}}  <a href="{{path('jp_maritime_downloadfile',{'id':folder,'doc':document})}}" class="btn btn-primary btn-xs"><i class="fa fa-download"></i> Télécharger</a> <a href="{{path('jp_maritime_displayfile',{'id':folder,'doc':document})}}" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> Aperçu</a>
+                     </p>
+                  </li>
+{% endmacro %}

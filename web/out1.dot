@@ -1,0 +1,8 @@
+
+Fatal error: Uncaught exception 'Symfony\Component\Workflow\Exception\LogicException' with message 'Place "facturation_achive" referenced in transition "facturation" does not exist.' in C:\wamp\www\MeteaApps\vendor\symfony\symfony\src\Symfony\Component\Workflow\Definition.php on line 108
+
+Symfony\Component\Workflow\Exception\LogicException: Place "facturation_achive" referenced in transition "facturation" does not exist. in C:\wamp\www\MeteaApps\vendor\symfony\symfony\src\Symfony\Component\Workflow\Definition.php on line 108
+
+Call Stack:
+    2.3541   19605472   1. Symfony\Component\Debug\ErrorHandler->handleException() C:\wamp\www\MeteaApps\vendor\symfony\symfony\src\Symfony\Component\Debug\ErrorHandler.php:0
+

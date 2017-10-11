@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Folder</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ folder.id }}</td>
+            </tr>
+            <tr>
+                <th>Foldernumber</th>
+                <td>{{ folder.folderNumber }}</td>
+            </tr>
+            <tr>
+                <th>Requerant</th>
+                <td>{{ folder.requerant }}</td>
+            </tr>
+            <tr>
+                <th>Navire</th>
+                <td>{{ folder.navire }}</td>
+            </tr>
+            <tr>
+                <th>Datearrive</th>
+                <td>{% if folder.dateArrive %}{{ folder.dateArrive|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ folder.description }}</td>
+            </tr>
+            <tr>
+                <th>Dateintervention</th>
+                <td>{% if folder.dateIntervention %}{{ folder.dateIntervention|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Step</th>
+                <td>{{ folder.step }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{% if folder.createdAt %}{{ folder.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('folder_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('folder_edit', { 'id': folder.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

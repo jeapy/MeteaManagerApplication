@@ -1,0 +1,21 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+              <div class="box">
+                  <div class="content-wrap">
+                      <img src="{{ asset('bundles/jpfichepaie/img/logo.png') }}">
+<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+    <div>
+        <label for="username">{{ 'resetting.request.username'|trans }}</label>
+        <input class="form-control") type="text" id="username" name="username" required="required" />
+    </div>
+    <div>
+        <input class="btn btn-success" type="submit" value="{{ 'resetting.request.submit'|trans }}" />
+    </div>
+</form>
+ </div> </div> 
+
+ <div class="already">
+                  <p>Vous avez deja un compte ? </p><br>
+                    <p><a href="{{ path("fos_user_security_login") }}">Connectez vous</a></p>
+
+              </div>
