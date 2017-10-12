@@ -22,6 +22,7 @@ class AffectationType extends AbstractType
                             'Expertise' => 'expertise',
                             'Redaction' => 'redaction',
                             'Correction' => 'correction',
+                            'Facturation' => 'facturation',
                         ),
                         'placeholder' =>'Choisir une étape'
                     ))                

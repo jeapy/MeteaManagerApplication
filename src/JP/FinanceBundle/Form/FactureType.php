@@ -30,8 +30,8 @@ class FactureType extends AbstractType
                 ->add('tva',ChoiceType::class, array(
                       'label' => 'Appliquez la TVA ?', 
                       'choices'     => array(
-                                    'Oui' => "Oui",
-                                    'Non' => "Non",
+                                    'Oui' => "1",
+                                    'Non' => "0",
                                     
                                 ),                                                     
                       'placeholder' => 'TVA ?',

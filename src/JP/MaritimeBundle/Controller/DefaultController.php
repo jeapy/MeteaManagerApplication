@@ -176,20 +176,26 @@ class DefaultController extends Controller
     {   
 
         $facture = new Facture();
-        $form = $this->createForm('JP\FinanceBundle\Form\FactureType', $facture);
-        
-        $em = $this->getDoctrine()->getManager();
-        $files = $em->getRepository('JPMainBundle:Document')->findByFolder($folder);
-        $step = $em->getRepository('JPMaritimeBundle:Step')->findByFolder($folder);
+        $form = $this->createForm('JP\FinanceBundle\Form\FactureType', $facture);        
+        $em   = $this->getDoctrine()->getManager();
 
-        $fac= $em->getRepository('JPFinanceBundle:Facture')->findByFolder($folder);
+
+        $files      = $em->getRepository('JPMainBundle:Document')->findByFolder($folder);
+        $step       = $em->getRepository('JPMaritimeBundle:Step')->findByFolder($folder);
+        $fac        = $em->getRepository('JPFinanceBundle:Facture')->findOneByFolder($folder);
+        $facItems   = $em->getRepository('JPFinanceBundle:Facture_item')->findByFacture($fac);
+
+
+        $editform = $this->createForm('JP\FinanceBundle\Form\FactureType',  $fac);  
        
         return $this->render('JPMaritimeBundle:Dossiers:expertise.html.twig', array(
-            'folder'    =>  $folder,
-            'files'     =>  $files,
-            'steps'     =>  $step,
-            'facture' => $fac,
-            'form' => $form->createView(),
+            'folder'         =>  $folder,
+            'files'          =>  $files,
+            'steps'          =>  $step,
+            'facture'        =>  $fac,
+            'factureitems'   =>  $facItems,
+            'form'           =>  $form->createView(),
+            'editform'       =>  $editform->createView(),
            
         ));
     }
@@ -214,13 +220,42 @@ public function addFactureAction(Request $request, Folder $folder)
       }else{
  
         $response['success'] = false;
-        $response['cause'] = 'whatever';
+        $response['cause'] = 'Erreur d enregistrement';
  
       }
  
       return new JsonResponse( $response );
    
   }
+
+
+   /**
+     * Displays a form to edit an existing facture entity.
+     *
+     */
+    public function editFactureAction(Request $request, Facture $facture)
+    {
+     
+        $editForm = $this->createForm('JP\FinanceBundle\Form\FactureType', $facture);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+             $user = $this->getUser();
+
+             $facture->setModifyBy($user);
+             $facture->setDhmodif(new \DateTime());
+
+            $this->getDoctrine()->getManager()->flush();
+            $response['success'] = true;
+           // return $this->redirectToRoute('finance_facture_edit', array('id' => $facture->getId()));
+        }else{ 
+            $response['success'] = false;
+            $response['cause'] = 'Erreur d enregistrement';
+ 
+      }
+        return new JsonResponse( $response );
+    }
+
 
 
 /**
