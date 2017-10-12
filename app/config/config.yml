@@ -98,8 +98,8 @@ lopi_pusher:
     debug: false # true if you want use the debug of all requests
 
     app_id: 222789
-    key: d3641acf918ce04e1039
-    secret: 876db55d8633003dc7a0
+    key: *******
+    secret: ******
 
 #PDF generator Configuration
 knp_snappy:
